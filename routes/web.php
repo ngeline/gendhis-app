@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MasterTravelController;
+use App\Http\Controllers\MasterBimbelController;
+use App\Http\Controllers\MasterJasaFotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +44,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function(){
     /* Admin */
     Route::group(['middleware' => 'CheckRole:Admin'], function(){
-
+        Route::resource('master-travel', MasterTravelController::class);
+        Route::resource('master-bimbel', MasterBimbelController::class);
+        Route::resource('master-jasa-foto', MasterJasaFotoController::class);
     });
     /* Customer */
     Route::group(['middleware' => 'CheckRole:Customer'], function(){
