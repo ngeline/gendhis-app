@@ -50,8 +50,17 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/master-travel/{master_travel}', [MasterTravelController::class, 'update'])->name('master-travel.update');
         Route::get('/master-travel/{master_travel}', [MasterTravelController::class, 'destroy'])->name('master-travel.destroy');
 
-        Route::resource('master-bimbel', MasterBimbelController::class);
-        Route::resource('master-jasa-foto', MasterJasaFotoController::class);
+        Route::resource('master-bimbel', MasterBimbelController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-bimbel/{master_bimbel}', [MasterBimbelController::class, 'update'])->name('master-bimbel.update');
+        Route::get('/master-bimbel/{master_bimbel}', [MasterBimbelController::class, 'destroy'])->name('master-bimbel.destroy');
+
+        Route::resource('master-jasa-foto', MasterJasaFotoController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-jasa-foto/{master_jasa_foto}', [MasterJasaFotoController::class, 'update'])->name('master-jasa-foto.update');
+        Route::get('/master-jasa-foto/{master_jasa_foto}', [MasterJasaFotoController::class, 'destroy'])->name('master-jasa-foto.destroy');
     });
     /* Customer */
     Route::group(['middleware' => 'CheckRole:Customer'], function(){
