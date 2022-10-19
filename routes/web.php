@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckRole;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MasterTravelController;
+use App\Http\Controllers\MasterBimbelController;
+use App\Http\Controllers\MasterJasaFotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +22,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landingpage');
-});
-Route::get('/login', function () {
-    return view('layouts.login');
-});
-Route::get('/register', function () {
-    return view('layouts.register');
+    return view('welcome');
 });
