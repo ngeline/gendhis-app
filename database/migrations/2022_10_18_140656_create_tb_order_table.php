@@ -17,7 +17,7 @@ class CreateTbOrderTable extends Migration
             $table->id();
             $table->integer('produk_id');
             $table->integer('users_id');
-            $table->integer('admin_id');
+            $table->integer('admin_id')->nullable();
             $table->string('status', 50)->default('Sedang Diproses'); //('Diterima', 'Dibatalkan')
             $table->string('alasan_pembatalan')->nullable();
             $table->timestamps();

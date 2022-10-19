@@ -16,7 +16,7 @@ class CreateTbTransaksiTable extends Migration
         Schema::create('tb_transaksi', function (Blueprint $table) {
             $table->id();
             $table->integer('order_id');
-            $table->integer('admin_id');
+            $table->integer('admin_id')->nullable();
             $table->string('jenis_pembayaran'); //('Online', 'Offline')
             $table->string('bank');
             $table->string('namaRek');
