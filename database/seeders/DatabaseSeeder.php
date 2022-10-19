@@ -72,7 +72,8 @@ class DatabaseSeeder extends Seeder
                 'deskripsi_paket' => 'Full servis - Akomodasi Pulang Pergi | Makan 2x | Tempat-tempat iconik',
                 'foto_paket' => 'dummyTravel.png',
                 'harga_paket' => $faker->randomElement($harga),
-                'jadwal_travel' => $faker->unique()->dateTimeBetween('+1 week', '+2 week')
+                'tanggal_travel' => \Carbon\Carbon::now()->addMonths('1')->format('Y-m-d'),
+                'waktu_travel' => \Carbon\Carbon::now()->addMonths('1')->format('H:i')
             ]);
         }
 

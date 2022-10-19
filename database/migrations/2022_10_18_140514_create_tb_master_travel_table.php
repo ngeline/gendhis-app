@@ -20,7 +20,8 @@ class CreateTbMasterTravelTable extends Migration
             $table->text('deskripsi_paket');
             $table->text('foto_paket');
             $table->integer('harga_paket');
-            $table->string('jadwal_travel');
+            $table->date('tanggal_travel');
+            $table->time('waktu_travel');
             $table->string('status', 50)->default('Aktif'); //('Aktif', 'Tidak')
             $table->timestamps();
             $table->softDeletes();
