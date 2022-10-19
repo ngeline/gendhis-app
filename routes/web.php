@@ -9,6 +9,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterTravelController;
 use App\Http\Controllers\MasterBimbelController;
 use App\Http\Controllers\MasterJasaFotoController;
+use App\Http\Controllers\ListPaketController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,66 @@ use App\Http\Controllers\MasterJasaFotoController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/* Login */
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'postLogin'])->name('post.login');
+
+/* Register */
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'postRegister'])->name('post.login');
+
+/* Logout */
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+/* Middleware && Auth */
+Route::group(['middleware' => 'auth'], function(){
+    /* Admin */
+    Route::group(['middleware' => 'CheckRole:Admin'], function(){
+        /* Master Travel */
+        Route::resource('master-travel', MasterTravelController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-travel/{master_travel}', [MasterTravelController::class, 'update'])->name('master-travel.update');
+        Route::get('/master-travel/{master_travel}', [MasterTravelController::class, 'destroy'])->name('master-travel.destroy');
+
+        /* Master Bimbel */
+        Route::resource('master-bimbel', MasterBimbelController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-bimbel/{master_bimbel}', [MasterBimbelController::class, 'update'])->name('master-bimbel.update');
+        Route::get('/master-bimbel/{master_bimbel}', [MasterBimbelController::class, 'destroy'])->name('master-bimbel.destroy');
+
+        /* Master Jasa Foto */
+        Route::resource('master-jasa-foto', MasterJasaFotoController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-jasa-foto/{master_jasa_foto}', [MasterJasaFotoController::class, 'update'])->name('master-jasa-foto.update');
+        Route::get('/master-jasa-foto/{master_jasa_foto}', [MasterJasaFotoController::class, 'destroy'])->name('master-jasa-foto.destroy');
+    });
+    /* Customer */
+    Route::group(['middleware' => 'CheckRole:Customer'], function(){
+        /* List Paket */
+        Route::get('/list-paket-travel', [ListPaketController::class, 'ListTravel'])->name('list-paket.travel');
+        Route::get('/list-paket-bimbel', [ListPaketController::class, 'ListBimbel'])->name('list-paket.bimbel');
+        Route::get('/list-paket-jasa-foto', [ListPaketController::class, 'ListJasaFoto'])->name('list-paket.foto');
+
+        /* Order */
+        Route::get('/form-order/{id}', [OrderController::class, 'FormOrder'])->name('form.order');
+        Route::post('/form-order/{id}', [OrderController::class, 'store'])->name('store.order');
+    });
+
+    /* Owner */
+    Route::group(['middleware' => 'CheckRole:Owner'], function(){
+    });
+
+    /* Owner & Admin */
+    Route::group(['middleware' => 'CheckRole:Owner,Admin'], function(){
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });
 });
