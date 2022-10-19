@@ -44,7 +44,12 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function(){
     /* Admin */
     Route::group(['middleware' => 'CheckRole:Admin'], function(){
-        Route::resource('master-travel', MasterTravelController::class);
+        Route::resource('master-travel', MasterTravelController::class, ['except' => [
+            'update', 'destroy'
+        ]]);
+        Route::post('/master-travel/{master_travel}', [MasterTravelController::class, 'update'])->name('master-travel.update');
+        Route::get('/master-travel/{master_travel}', [MasterTravelController::class, 'destroy'])->name('master-travel.destroy');
+
         Route::resource('master-bimbel', MasterBimbelController::class);
         Route::resource('master-jasa-foto', MasterJasaFotoController::class);
     });
