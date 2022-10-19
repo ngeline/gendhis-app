@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/kelolaakun/{id}', [OwnerController::class, 'edit'])->name('o.adminEdit');
         Route::post('/update', [OwnerController::class, 'update'])->name('o.adminUpdate');
         Route::get('/delete/{id}', [OwnerController::class, 'destroy'])->name('o.adminDelete');
-        
+
     });
 
     /* Owner & Admin */
