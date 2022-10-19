@@ -11,6 +11,7 @@ use App\Http\Controllers\MasterBimbelController;
 use App\Http\Controllers\MasterJasaFotoController;
 use App\Http\Controllers\ListPaketController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OwnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,13 @@ Route::group(['middleware' => 'auth'], function(){
 
     /* Owner */
     Route::group(['middleware' => 'CheckRole:Owner'], function(){
+        Route::get('/kelolaakun', [OwnerController::class, 'kelolaakun'])->name('o.kelolaakun');
+        Route::post('/kelolaakun', [OwnerController::class, 'kelolaakun'])->name('o.managerSearch');
+        Route::post('/store/admin', [OwnerController::class, 'register'])->name('o.user.store');
+        Route::get('/kelolaakun/{id}', [OwnerController::class, 'edit'])->name('o.adminEdit');
+        Route::post('/update', [OwnerController::class, 'update'])->name('o.adminUpdate');
+        Route::get('/delete/{id}', [OwnerController::class, 'destroy'])->name('o.adminDelete');
+        
     });
 
     /* Owner & Admin */
