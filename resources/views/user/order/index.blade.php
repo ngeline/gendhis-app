@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-12">
                 <label for="">No Telepon Pemesan</label>
-                <input type="text" class="@error('telepon') is-invalid @enderror" name="telepon"
+                <input type="number" class="@error('telepon') is-invalid @enderror" name="telepon"
                     value="{{ old('telepon') }}" autofocus>
                 @error('telepon')
                     <span class="invalid-feedback" role="alert">

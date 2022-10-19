@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         /* Order */
         Route::get('/form-order/{id}', [OrderController::class, 'FormOrder'])->name('form.order');
-        Route::post('/form-order/{id}', [OrderController::class, 'store'])->name('store.order');
+        Route::post('/form-order/{id}', [OrderController::class, 'StoreOrder'])->name('store.order');
     });
 
     /* Owner */
